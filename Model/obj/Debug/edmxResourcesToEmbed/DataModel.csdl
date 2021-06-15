@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="StoreSet" EntityType="DataModel.Store" />
+    <EntitySet Name="ProductSet" EntityType="DataModel.Product" />
+    <AssociationSet Name="StoreProduct" Association="DataModel.StoreProduct">
+      <End Role="Store" EntitySet="StoreSet" />
+      <End Role="Product" EntitySet="ProductSet" />
+    </AssociationSet>
+    <EntitySet Name="CustomerSet" EntityType="DataModel.Customer" />
+    <EntitySet Name="OrderSet" EntityType="DataModel.Order" />
+  </EntityContainer>
+  <EntityType Name="Store">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="DataModel.StoreProduct" FromRole="Store" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="Number" Type="Int32" Nullable="false" />
+    <Property Name="StoreID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Store" Relationship="DataModel.StoreProduct" FromRole="Product" ToRole="Store" />
+  </EntityType>
+  <Association Name="StoreProduct">
+    <End Type="DataModel.Store" Role="Store" Multiplicity="1" />
+    <End Type="DataModel.Product" Role="Product" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" />
+    <Property Name="Balance" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" />
+    <Property Name="Product" Type="String" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" />
+    <Property Name="Number" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+  </EntityType>
+</Schema>
